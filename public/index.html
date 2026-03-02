@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pencari Kata KBBI</title>
+</head>
+<body>
+
+<h2>Pencari Kata KBBI</h2>
+<input type="text" id="prefix">
+<button onclick="search()">Cari</button>
+<div id="result"></div>
+
+<script>
+async function search() {
+    const prefix = document.getElementById("prefix").value;
+    const res = await fetch(`/api/search?prefix=${prefix}`);
+    const data = await res.json();
+
+    const result = document.getElementById("result");
+    result.innerHTML = "";
+
+    if (data.error) {
+        result.innerHTML = data.error;
+        return;
+    }
+
+    data.forEach(word => {
+        result.innerHTML += "<div>"+word+"</div>";
+    });
+}
+</script>
+
+</body>
+</html>
