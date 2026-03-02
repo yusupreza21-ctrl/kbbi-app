@@ -30,8 +30,14 @@ app.get("/api/search", async (req, res) => {
     try {
         const response = await axios.get(
             `https://kbbi.kemdikbud.go.id/entri/${prefix}`,
-            { headers: { "User-Agent": "Mozilla/5.0" } }
-        );
+            { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      "Accept": "text/html,application/xhtml+xml",
+      "Accept-Language": "id-ID,id;q=0.9",
+      "Connection": "keep-alive"
+    },
+    timeout: 10000
+  }
+);
 
         const $ = cheerio.load(response.data);
         let results = [];
